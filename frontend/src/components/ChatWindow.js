@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const ChatWindow = ({ socket, selectedUser, currentUser }) => {
