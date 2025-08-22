@@ -133,6 +133,7 @@ const ChatDashboard = () => {
         {selectedUser ? (
           <ChatWindow
             socket={socket}
+            setSelectedUser={setSelectedUser}
             selectedUser={selectedUser}
             currentUser={currentUser}
           />

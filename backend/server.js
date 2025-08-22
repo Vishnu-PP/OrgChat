@@ -12,10 +12,10 @@ require("dotenv").config();
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
-  cors: { origin: process.env.FRONTEND_URL || "http://localhost:3000" },
+  cors: { origin: process.env.FRONTEND_URL || "http://localhost:3001" },
 });
 
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:3000" }));
+app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:3001" }));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);

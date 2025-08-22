@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const ChatWindow = ({ socket, selectedUser, currentUser }) => {
+const ChatWindow = ({ socket, selectedUser, currentUser, setSelectedUser }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
@@ -88,6 +88,12 @@ const ChatWindow = ({ socket, selectedUser, currentUser }) => {
     <div className="flex flex-col h-full">
       <div className="bg-white p-4 border-b">
         <h2 className="text-xl font-bold">{selectedUser.name}</h2>
+        <button
+          onClick={() => setSelectedUser(null)}
+          className="text-gray-600 hover:text-gray-800"
+        >
+          Close
+        </button>
       </div>
       <div className="flex-1 p-4 overflow-y-auto bg-gray-50">
         {messages.map((msg, index) => (
