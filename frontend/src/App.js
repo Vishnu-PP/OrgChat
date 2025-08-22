@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ChatDashboard from './components/ChatDashboard';
+import { useEffect } from 'react';
 
 function App() {
   return (
