@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+package-lock.json
+
+# Environment files
+backend/.env
+frontend/.env
+
+# Build outputs
+frontend/build/
+
+# Logs and temporary files
+*.log
+.DS_Store
