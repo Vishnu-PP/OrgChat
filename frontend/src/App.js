@@ -14,5 +14,10 @@ function App() {
     </Router>
   );
 }
+  useEffect(() => {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+  }, []);
 
 export default App;

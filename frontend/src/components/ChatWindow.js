@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const ChatWindow = ({ socket, selectedUser, currentUser }) => {
@@ -34,6 +35,38 @@ const ChatWindow = ({ socket, selectedUser, currentUser }) => {
       socket.off('receiveMessage');
     };
   }, [socket, selectedUser._id, currentUser.id]);
+  useEffect(() => {
+    // ...existing code for socket connection and message handling...
+    const bc = new window.BroadcastChannel('orgchat_notifications');
+    socket.on('message', (message) => {
+      // ...existing code to update chat UI...
+
+      // Show notification only if window is not focused
+      if (document.visibilityState !== 'visible') {
+        // Notify other tabs to avoid duplicate notifications
+        bc.postMessage({ type: 'new-message', message });
+      }
+    });
+
+    // Listen for notification events from other tabs
+    bc.onmessage = (event) => {
+      if (event.data.type === 'new-message') {
+        if (document.visibilityState !== 'visible' && Notification.permission === 'granted') {
+          const { message } = event.data;
+          new Notification(`New message from ${message.senderName || 'Someone'}`, {
+            body: message.text || '',
+            icon: '/favicon.ico',
+          });
+        }
+      }
+    };
+
+    // ...existing code...
+    return () => {
+      bc.close();
+      // ...existing cleanup code...
+    };
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
